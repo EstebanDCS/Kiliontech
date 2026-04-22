@@ -16,6 +16,49 @@
     }, { passive: true });
   }
 
+  /* ----- Audience toggle (individuals / companies) ----- */
+  (function initAudience() {
+    const body = document.body;
+    const pill = document.getElementById('audiencePill');
+    const buttons = document.querySelectorAll('.audience-toggle button[data-audience]');
+    if (!buttons.length) return;
+
+    function movePill(btn) {
+      if (!pill || !btn) return;
+      pill.style.left = btn.offsetLeft + 'px';
+      pill.style.width = btn.offsetWidth + 'px';
+    }
+
+    function setAudience(value, { persist = true } = {}) {
+      body.setAttribute('data-audience', value);
+      let activeBtn = null;
+      buttons.forEach(b => {
+        const on = b.dataset.audience === value;
+        b.setAttribute('aria-pressed', on ? 'true' : 'false');
+        if (on) activeBtn = b;
+      });
+      movePill(activeBtn);
+      if (persist) {
+        try { localStorage.setItem('kt_audience', value); } catch (e) {}
+      }
+    }
+
+    buttons.forEach(b => b.addEventListener('click', () => setAudience(b.dataset.audience)));
+
+    const saved = (() => { try { return localStorage.getItem('kt_audience'); } catch (e) { return null; } })();
+    setAudience(saved === 'companies' ? 'companies' : 'individuals', { persist: false });
+
+    // Reposition pill on load (fonts) and on resize
+    window.addEventListener('load', () => {
+      const on = document.querySelector('.audience-toggle button[aria-pressed="true"]');
+      movePill(on);
+    });
+    window.addEventListener('resize', () => {
+      const on = document.querySelector('.audience-toggle button[aria-pressed="true"]');
+      movePill(on);
+    });
+  })();
+
   /* ----- Contact form (no backend yet — fake-submit visual) ----- */
   window.submitForm = function (e) {
     e.preventDefault();

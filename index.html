@@ -5,13 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Kilion Tech — Software, automatizaciones y reparaciones en Gijón</title>
 <meta name="description" content="Dos ingenieros de Gijón construyendo software a medida, automatizaciones y apps. Reparaciones técnicas coordinadas. Sin precios de agencia." />
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="64x64" href="assets/favicon-64.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="theme-color" content="#0a0a0a">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="assets/css/tokens.css">
-<link rel="stylesheet" href="assets/css/components.css">
-<link rel="stylesheet" href="assets/css/sections.css">
+<link rel="stylesheet" href="assets/css/tokens.css?v=4">
+<link rel="stylesheet" href="assets/css/components.css?v=4">
+<link rel="stylesheet" href="assets/css/sections.css?v=4">
 
 <script>
   // Defaults are inline + wrapped in EDITMODE markers so host can rewrite on disk.
@@ -110,8 +114,19 @@
   </div>
 </header>
 
-<!-- SERVICIOS -->
-<section class="block" id="servicios" data-screen-label="03 Servicios">
+<!-- AUDIENCE TOGGLE (sticky above the audience-specific blocks) -->
+<div class="audience-sticky" data-screen-label="01b Audiencia">
+  <div class="wrap audience-bar">
+    <div class="audience-toggle" role="tablist" aria-label="Tipo de cliente">
+      <span class="pill" id="audiencePill" aria-hidden="true"></span>
+      <button type="button" role="tab" data-audience="individuals" aria-pressed="true">Para individuos</button>
+      <button type="button" role="tab" data-audience="companies" aria-pressed="false">Para empresas</button>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICIOS (individuos) -->
+<section class="block" id="servicios" data-audience-only="individuals" data-screen-label="03 Servicios">
   <div class="wrap">
     <div class="section-head">
       <div class="section-num">01 · Servicios</div>
@@ -182,6 +197,40 @@
         </div>
       </a>
 
+    </div>
+  </div>
+</section>
+
+<!-- EMPRESAS: CTA panel -->
+<section class="block" id="empresas" data-audience-only="companies" data-screen-label="03b Empresas" style="padding-block: clamp(40px, 6vh, 80px);">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-num">01 · Para empresas</div>
+      <h2>Cada empresa es distinta. <em>Cuéntanos</em> la tuya.</h2>
+    </div>
+
+    <div class="companies-panel">
+      <div>
+        <div class="kicker">Proyectos a medida</div>
+        <h3>Nada de paquetes cerrados: <em>hablamos</em> y lo hacemos.</h3>
+        <p>Para empresas no tiene sentido listar precios de catálogo: cada caso pide un análisis propio. Nos cuentas qué necesitas —un proceso que automatizar, una herramienta interna, una integración entre sistemas— y después de escucharte te mandamos una propuesta clara con alcance, plazo y precio cerrado.</p>
+        <p>Sin comerciales, sin presentaciones infladas y sin ataduras: si la propuesta no encaja, no pasa nada.</p>
+        <div class="cta-row">
+          <a href="#contacto" class="btn btn-primary">Cuéntanos tu proyecto <span class="btn-arrow">→</span></a>
+          <a href="mailto:contacto@kiliontech.com" class="btn btn-ghost">contacto@kiliontech.com</a>
+        </div>
+      </div>
+
+      <div class="bullets">
+        <h4>Cómo solemos trabajar</h4>
+        <ul>
+          <li><span><b>Llamada inicial</b> de 20–30 min para entender el problema real, sin compromiso.</span></li>
+          <li><span><b>Propuesta por escrito</b> con alcance, hitos, plazo y precio cerrado.</span></li>
+          <li><span><b>Desarrollo iterativo</b>: te mostramos avances semanales, no desaparecemos.</span></li>
+          <li><span><b>Entrega y documentación</b> — el código es tuyo, sin dependencias ocultas.</span></li>
+          <li><span><b>Soporte posterior</b> acordado según lo que necesitéis, no por defecto.</span></li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
@@ -370,6 +419,6 @@
   </div>
 </div>
 
-<script src="assets/js/main.js"></script>
+<script src="assets/js/main.js?v=4"></script>
 </body>
 </html>
