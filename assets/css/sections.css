@@ -400,6 +400,23 @@ h1.hero-title .accent { color: var(--accent); font-style: italic; font-weight: 4
   background: color-mix(in oklch, var(--accent) 8%, transparent);
 }
 .send-success.show { display: block; }
+.send-error {
+  display: none; padding: 16px; margin-top: 16px;
+  border: 1px solid #e55; border-radius: 12px;
+  color: #f88; font-size: 14px;
+  background: rgba(200, 50, 50, 0.08);
+}
+.send-error a { color: var(--accent); text-decoration: underline; }
+.send-error.show { display: block; }
+.btn-spinner {
+  display: inline-block; width: 14px; height: 14px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin-btn .6s linear infinite;
+  vertical-align: middle;
+}
+@keyframes spin-btn { to { transform: rotate(360deg); } }
 
 /* ==========================================================
    Legal pages — shared layout

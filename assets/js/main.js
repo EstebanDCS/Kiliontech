@@ -59,15 +59,52 @@
     });
   })();
 
-  /* ----- Contact form (no backend yet — fake-submit visual) ----- */
-  window.submitForm = function (e) {
-    e.preventDefault();
-    const ok = document.getElementById('sent');
-    if (ok) ok.classList.add('show');
-    const btn = e.target.querySelector('button[type=submit]');
-    if (btn) btn.disabled = true;
-    return false;
-  };
+  /* ----- Contact form → Formsubmit.co ----- */
+  const contactForm = document.getElementById('contactForm');
+  if (contactForm) {
+    contactForm.addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const btn      = contactForm.querySelector('button[type=submit]');
+      const okMsg    = document.getElementById('sent');
+      const errMsg   = document.getElementById('sendError');
+      const origHTML = btn ? btn.innerHTML : '';
+
+      // Reset previous states
+      if (okMsg)  okMsg.classList.remove('show');
+      if (errMsg) errMsg.classList.remove('show');
+
+      // Loading state
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<span class="btn-spinner"></span> Enviando…';
+      }
+
+      try {
+        const data = new FormData(contactForm);
+        const res  = await fetch('https://formsubmit.co/ajax/contacto@kiliontech.com', {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (res.ok) {
+          if (okMsg) okMsg.classList.add('show');
+          contactForm.reset();
+        } else {
+          throw new Error('Server responded with ' + res.status);
+        }
+      } catch (err) {
+        console.error('Contact form error:', err);
+        if (errMsg) errMsg.classList.add('show');
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = origHTML;
+        }
+      }
+    });
+  }
 
   /* ----- Tweaks / edit mode ----- */
   const STATE = Object.assign({}, window.TWEAK_DEFAULTS || {});
